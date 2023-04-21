@@ -1,0 +1,33 @@
+.main {
+    @apply grid place-content-center h-full px-4;
+
+    .hero {
+        @apply text-7xl;
+    }
+
+    .job-title {
+        @apply mt-2 font-mono italic text-2xl opacity-70;
+    }
+
+    .social {
+        @apply flex gap-10 mt-20 justify-center;
+
+        &__twitter {
+            @apply hover:text-sky-500;
+        }
+
+        &__github {
+            @apply hover:text-white;
+        }
+
+        &__instagram {
+            @apply hover:text-rose-500;
+        }
+
+        &__twitter,
+        &__github,
+        &__instagram {
+            @apply cursor-pointer text-neutral-400 transition;
+        }
+    }
+}
