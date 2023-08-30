@@ -1,11 +1,11 @@
-export default function IconGitHub({ size = 24, ...props }) {
+export default function IconGitHub({ ...props }) {
     return (
         <svg
             role="img"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            width={size}
-            height={size}
+            width="1em"
+            height="1em"
             {...props}
         >
             <path

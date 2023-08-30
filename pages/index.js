@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from "next/link"
 
 import IconTwitter from 'components/icons/twitter'
 import IconGitHub from 'components/icons/github'
@@ -22,15 +21,15 @@ export default function Home() {
           <h1 className={styles.hero}>Ahmet Tınastepe</h1>
           <p className={styles['job-title']}>Software Developer</p>
           <div className={styles.social}>
-              <Link href="https://github.com/tinas">
+              <a href="https://github.com/tinas" target="_blank" rel="noreferrer">
                 <IconGitHub className={styles['social__github']}/>
-              </Link>
-              <Link href="https://twitter.com/tinasdev">
+              </a>
+              <a href="https://twitter.com/tinasdev" target="_blank" rel="noreferrer">
                 <IconTwitter className={styles['social__twitter']}/>
-              </Link>
-              <Link href="https://instagram.com/tinasdev">
+              </a>
+              <a href="https://instagram.com/tinasdev" target="_blank" rel="noreferrer">
                 <IconInstagram className={styles['social__instagram']}/>
-              </Link>
+              </a>
           </div>
       </main>
     </>
