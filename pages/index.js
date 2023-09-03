@@ -1,7 +1,8 @@
 import Head from 'next/head'
 
-import IconTwitter from 'components/icons/twitter'
 import IconGitHub from 'components/icons/github'
+import IconFigma from "../components/icons/figma";
+import IconTwitter from 'components/icons/twitter'
 import IconInstagram from 'components/icons/instagram'
 
 import styles from 'styles/Home.module.scss'
@@ -22,13 +23,16 @@ export default function Home() {
           <p className={styles['job-title']}>Software Developer</p>
           <div className={styles.social}>
               <a href="https://github.com/tinas" target="_blank" rel="noreferrer">
-                <IconGitHub className={styles['social__github']}/>
+                <IconGitHub/>
+              </a>
+              <a href="https://figma.com/@tinas" target="_blank" rel="noreferrer">
+                  <IconFigma/>
               </a>
               <a href="https://twitter.com/tinasdev" target="_blank" rel="noreferrer">
-                <IconTwitter className={styles['social__twitter']}/>
+                <IconTwitter/>
               </a>
               <a href="https://instagram.com/tinasdev" target="_blank" rel="noreferrer">
-                <IconInstagram className={styles['social__instagram']}/>
+                <IconInstagram/>
               </a>
           </div>
       </main>
