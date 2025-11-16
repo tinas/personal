@@ -32,12 +32,12 @@ export default defineConfig({
     ['meta', { property: 'og:title', content: 'Ahmet Tınastepe' }],
     ['meta', { property: 'og:description', content: 'Just a developer trying to make the web a little nicer.' }],
     ['meta', { property: 'og:url', content: SITE_URL }],
-    ['meta', { property: 'og:image', content: `${SITE_URL}/profile.png` }],
+    ['meta', { property: 'og:image', content: `${SITE_URL}/thumb.jpg` }],
 
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'Ahmet Tınastepe' }],
     ['meta', { name: 'twitter:description', content: 'Just a developer trying to make the web a little nicer.' }],
-    ['meta', { name: 'twitter:image', content: `${SITE_URL}/profile.png` }]
+    ['meta', { name: 'twitter:image', content: `${SITE_URL}/thumb.jpg` }]
   ],
 
   themeConfig: {
