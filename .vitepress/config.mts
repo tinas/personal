@@ -43,6 +43,10 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
 
+    search: {
+      provider: 'local'
+    },
+
     sidebar: [
       {
         text: 'About Me',
@@ -51,7 +55,8 @@ export default defineConfig({
       {
         text: 'Writing',
         items: [
-          { text: 'Overview', link: '/writing/overview' },
+          { text: 'Notes', link: '/writing/notes' },
+          { text: 'The URL Was Always the State. We Just Kept Ignoring It.', link: '/writing/the-url-was-always-the-state-we-just-kept-ignoring-it' },
         ]
       }
     ],
@@ -65,6 +70,7 @@ export default defineConfig({
       { icon: 'figma', link: 'https://figma.com/@tinas' },
       { icon: 'x', link: 'https://x.com/tinasdev' },
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
+      { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ]
   }
 })
