@@ -56,10 +56,10 @@ qpick ships with parsers for the common cases like `parseAsFloat`, `parseAsBoole
 When the built-ins don't cover your case, `createParser` lets you bring your own types:
 
 ```ts
-const parseAsPriceRange = createParser<{ min: number; max: number }>({
+const parseAsPriceRange = createParser<{ min: number, max: number }>({
   parse(value) {
     const [min, max] = value.split('-').map(Number)
-    return (isNaN(min) || isNaN(max)) ? null : { min, max }
+    return (Number.isNaN(min) || Number.isNaN(max)) ? null : { min, max }
   },
   serialize(value) {
     return `${value.min}-${value.max}`
