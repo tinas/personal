@@ -1,4 +1,10 @@
-# The URL Was Always the State. We Just Kept Ignoring It.
+<script setup lang="ts">
+  import WritingImage from '@theme/components/WritingImage.vue'
+</script>
+
+# The URL was always the state, we just kept ignoring it
+
+<WritingImage imagePath="/writing/route.jpg" imageBy="Javier Allegue Barros" imageByHref="https://unsplash.com/@soymeraki"/>
 
 Every Vue app eventually has *that* moment. You build a product listing page with filters, sorting, pagination, the works. It feels great. Then someone shares the link, the other person opens it, and everything is gone. All that carefully managed state lived in a `ref()` somewhere in memory, not in the URL where it actually belonged.
 
@@ -17,7 +23,7 @@ qpick gives you a single composable, `useRouteState`, that turns URL parameters 
 ```ts
 import { parseAsInteger, useRouteState } from 'qpick'
 
-const page = useRouteState({ key: 'page', parser: parseAsInteger.default(1) })
+const page = useRouteState({ key: 'page', parser: parseAsInteger.default(1) }) // [!code highlight]
 // page.value is a number. Always. Never null, never "2", never undefined.
 // Setting page.value = 3 navigates to ?page=3.
 // Hitting the back button sets it back. Reactively.
@@ -105,8 +111,8 @@ watch(() => filters.toObject(), (params) => {
 
 If you've used [TanStack Query](https://tanstack.com/query), the pattern here might feel familiar. TanStack Query encourages you to define query options in a shared file so that any component can reference the same query without duplicating configuration. qpick borrows that idea for URL state: define your configs once, import them wherever you need them, and let the shared source of truth (in this case, the URL) keep everything in sync.
 
-```ts
-// composables/states.ts
+:::code-group
+```ts [composables/states.ts]
 export const searchState = routeStateOptions({
   key: 'search',
   parser: parseAsString.default(''),
@@ -118,6 +124,7 @@ export const pageState = routeStateOptions({
   parser: parseAsInteger.default(1),
 })
 ```
+:::
 
 Now `ProductList.vue` and `ProductPagination.vue` can both import `pageState`, call `useRouteState(pageState)`, and they stay in sync automatically. Not through a store or provide/inject or an event bus, but because they both read from and write to the same URL. Change the page in one component, the other one reacts. That's just how refs work when they share a source of truth.
 
