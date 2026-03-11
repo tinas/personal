@@ -2,13 +2,14 @@ import { defineConfig } from 'vitepress'
 
 const SITE_URL = 'https://www.tinas.dev'
 
+const isWritingPage = (path: string) => /^writing\/(?!.*index\.md$).+\.md$/.test(path)
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Ahmet Tınastepe',
   description: 'Personal site of Ahmet Tınastepe, a software developer who writes code for humans.',
 
   cleanUrls: true,
-  lastUpdated: true,
 
   sitemap: {
     hostname: SITE_URL,
@@ -30,13 +31,13 @@ export default defineConfig({
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'tinas.dev' }],
     ['meta', { property: 'og:title', content: 'Ahmet Tınastepe' }],
-    ['meta', { property: 'og:description', content: 'Just a developer trying to make the web a little nicer.' }],
+    ['meta', { property: 'og:description', content: 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.' }],
     ['meta', { property: 'og:url', content: SITE_URL }],
     ['meta', { property: 'og:image', content: `${SITE_URL}/thumb.jpg` }],
 
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'Ahmet Tınastepe' }],
-    ['meta', { name: 'twitter:description', content: 'Just a developer trying to make the web a little nicer.' }],
+    ['meta', { name: 'twitter:description', content: 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.' }],
     ['meta', { name: 'twitter:image', content: `${SITE_URL}/thumb.jpg` }],
   ],
 
@@ -63,5 +64,24 @@ export default defineConfig({
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
       { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ],
+  },
+
+  transformPageData(pageData) {
+    const { relativePath, frontmatter, title } = pageData
+
+    if (!isWritingPage(relativePath))
+      return
+
+    const imagePath = `/${relativePath.replace(/\.md$/, '.jpg')}`
+    const imageUrl = `${SITE_URL}${imagePath}`
+
+    frontmatter.head ??= []
+    frontmatter.head.push(
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:image', content: imageUrl }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:image', content: imageUrl }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    )
   },
 })

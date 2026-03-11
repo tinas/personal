@@ -1,10 +1,14 @@
 <script setup lang="ts">
-  import WritingImage from '@theme/components/WritingImage.vue'
+import WritingImage from '@theme/components/WritingImage.vue'
 </script>
 
 # The URL was always the state, we just kept ignoring it
 
-<WritingImage imagePath="/writing/route.jpg" imageBy="Javier Allegue Barros" imageByHref="https://unsplash.com/@soymeraki"/>
+<WritingImage
+  imagePath="/writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg"
+  imageBy="Javier Allegue Barros"
+  imageByHref="https://unsplash.com/@soymeraki"
+/>
 
 Every Vue app eventually has *that* moment. You build a product listing page with filters, sorting, pagination, the works. It feels great. Then someone shares the link, the other person opens it, and everything is gone. All that carefully managed state lived in a `ref()` somewhere in memory, not in the URL where it actually belonged.
 

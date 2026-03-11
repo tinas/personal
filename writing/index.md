@@ -1,8 +1,3 @@
----
-title: Writing
-description: Notes, ideas, and things I learn along the way.
----
-
 <script setup>
   import WritingLanding from './components/WritingLanding.vue'
 </script>
