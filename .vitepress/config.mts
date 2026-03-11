@@ -63,34 +63,4 @@ export default defineConfig({
       { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ],
   },
-
-  transformHead({ pageData, head }) {
-    const { relativePath, title } = pageData
-
-    const isWritingPage = /^writing\/(?!.*index\.md$).+\.md$/.test(relativePath)
-    if (!isWritingPage)
-      return
-
-    const imagePath = `/${relativePath.replace(/\.md$/, '.jpg')}`
-    const imageUrl = `${SITE_URL}${imagePath}`
-
-    const overriddenProperties = ['og:title', 'og:image', 'twitter:title', 'twitter:image']
-
-    const filtered = head.filter(([tag, attrs]) => {
-      if (tag !== 'meta')
-        return true
-
-      const key = attrs.property || attrs.name
-      return !overriddenProperties.includes(key)
-    })
-
-    filtered.push(
-      ['meta', { property: 'og:title', content: title }],
-      ['meta', { property: 'og:image', content: imageUrl }],
-      ['meta', { name: 'twitter:title', content: title }],
-      ['meta', { name: 'twitter:image', content: imageUrl }],
-    )
-
-    return filtered
-  },
 })
