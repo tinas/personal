@@ -2,8 +2,6 @@ import { defineConfig } from 'vitepress'
 
 const SITE_URL = 'https://www.tinas.dev'
 
-const isWritingPage = (path: string) => /^writing\/(?!.*index\.md$).+\.md$/.test(path)
-
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Ahmet Tınastepe',
@@ -66,22 +64,33 @@ export default defineConfig({
     ],
   },
 
-  transformPageData(pageData) {
-    const { relativePath, frontmatter, title } = pageData
+  transformHead({ pageData, head }) {
+    const { relativePath, title } = pageData
 
-    if (!isWritingPage(relativePath))
+    const isWritingPage = /^writing\/(?!.*index\.md$).+\.md$/.test(relativePath)
+    if (!isWritingPage)
       return
 
     const imagePath = `/${relativePath.replace(/\.md$/, '.jpg')}`
     const imageUrl = `${SITE_URL}${imagePath}`
 
-    frontmatter.head ??= []
-    frontmatter.head.push(
+    const overriddenProperties = ['og:title', 'og:image', 'twitter:title', 'twitter:image']
+
+    const filtered = head.filter(([tag, attrs]) => {
+      if (tag !== 'meta')
+        return true
+
+      const key = attrs.property || attrs.name
+      return !overriddenProperties.includes(key)
+    })
+
+    filtered.push(
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:image', content: imageUrl }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:image', content: imageUrl }],
-      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     )
+
+    return filtered
   },
 })
