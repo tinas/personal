@@ -63,23 +63,22 @@ export default defineConfig({
     ],
   },
 
-  transformPageData(pageData) {
+  transformHead({ pageData, title }) {
     let ogTitle = OG_TITLE
     let ogImage = IMAGE_URL
 
     const isWritingPage = /^writing\/(?!.*index\.md$).+\.md$/.test(pageData.relativePath)
     if (isWritingPage) {
       const imagePath = `/${pageData.relativePath.replace(/\.md$/, '.jpg')}`
-      ogTitle = pageData.title
+      ogTitle = title
       ogImage = `${SITE_URL}${imagePath}`
     }
 
-    pageData.frontmatter.head ??= []
-    pageData.frontmatter.head.push(
+    return [
       ['meta', { property: 'og:title', content: ogTitle }],
       ['meta', { property: 'og:image', content: ogImage }],
       ['meta', { name: 'twitter:title', content: ogTitle }],
       ['meta', { name: 'twitter:image', content: ogImage }],
-    )
+    ]
   },
 })
