@@ -31,11 +31,15 @@ export default defineConfig({
 
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'tinas.dev' }],
+    ['meta', { property: 'og:title', content: OG_TITLE }],
     ['meta', { property: 'og:description', content: OG_DESCRIPTION }],
     ['meta', { property: 'og:url', content: SITE_URL }],
+    ['meta', { property: 'og:image', content: IMAGE_URL }],
 
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: OG_TITLE }],
     ['meta', { name: 'twitter:description', content: OG_DESCRIPTION }],
+    ['meta', { name: 'twitter:image', content: IMAGE_URL }],
   ],
 
   themeConfig: {
@@ -61,24 +65,5 @@ export default defineConfig({
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
       { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ],
-  },
-
-  transformHead({ pageData, title }) {
-    let ogTitle = OG_TITLE
-    let ogImage = IMAGE_URL
-
-    const isWritingPage = /^writing\/(?!.*index\.md$).+\.md$/.test(pageData.relativePath)
-    if (isWritingPage) {
-      const imagePath = `/${pageData.relativePath.replace(/\.md$/, '.jpg')}`
-      ogTitle = title
-      ogImage = `${SITE_URL}${imagePath}`
-    }
-
-    return [
-      ['meta', { property: 'og:title', content: ogTitle }],
-      ['meta', { property: 'og:image', content: ogImage }],
-      ['meta', { name: 'twitter:title', content: ogTitle }],
-      ['meta', { name: 'twitter:image', content: ogImage }],
-    ]
   },
 })
