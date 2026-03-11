@@ -1,19 +1,3 @@
----
-head:
-  - - meta
-    - property: og:title
-      content: The URL was always the state, we just kept ignoring it
-  - - meta
-    - property: og:image
-      content: https://tinas.dev/writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
-  - - meta
-    - name: twitter:title
-      content: The URL was always the state, we just kept ignoring it
-  - - meta
-    - name: twitter:image
-      content: https://tinas.dev/writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
----
-
 <script setup lang="ts">
 import WritingImage from '@theme/components/WritingImage.vue'
 </script>

@@ -1,11 +1,14 @@
 import { defineConfig } from 'vitepress'
 
 const SITE_URL = 'https://www.tinas.dev'
+const IMAGE_URL = `${SITE_URL}/thumb.jpg`
+const OG_TITLE = 'Ahmet Tınastepe'
+const OG_DESCRIPTION = 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Ahmet Tınastepe',
-  description: 'Personal site of Ahmet Tınastepe, a software developer who writes code for humans.',
+  title: OG_TITLE,
+  description: OG_DESCRIPTION,
 
   cleanUrls: true,
 
@@ -23,20 +26,16 @@ export default defineConfig({
       },
     ],
 
-    ['meta', { name: 'author', content: 'Ahmet Tınastepe' }],
+    ['meta', { name: 'author', content: OG_TITLE }],
     ['meta', { name: 'theme-color', content: '#ff7a3d' }],
 
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'tinas.dev' }],
-    ['meta', { property: 'og:title', content: 'Ahmet Tınastepe' }],
-    ['meta', { property: 'og:description', content: 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.' }],
+    ['meta', { property: 'og:description', content: OG_DESCRIPTION }],
     ['meta', { property: 'og:url', content: SITE_URL }],
-    ['meta', { property: 'og:image', content: `${SITE_URL}/thumb.jpg` }],
 
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:title', content: 'Ahmet Tınastepe' }],
-    ['meta', { name: 'twitter:description', content: 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.' }],
-    ['meta', { name: 'twitter:image', content: `${SITE_URL}/thumb.jpg` }],
+    ['meta', { name: 'twitter:description', content: OG_DESCRIPTION }],
   ],
 
   themeConfig: {
@@ -52,7 +51,7 @@ export default defineConfig({
     ],
 
     footer: {
-      copyright: '© 2026 Ahmet Tınastepe',
+      copyright: `© 2026 ${OG_TITLE}`,
     },
 
     socialLinks: [
@@ -62,5 +61,25 @@ export default defineConfig({
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
       { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ],
+  },
+
+  transformPageData(pageData) {
+    let ogTitle = OG_TITLE
+    let ogImage = IMAGE_URL
+
+    const isWritingPage = /^writing\/(?!.*index\.md$).+\.md$/.test(pageData.relativePath)
+    if (isWritingPage) {
+      const imagePath = `/${pageData.relativePath.replace(/\.md$/, '.jpg')}`
+      ogTitle = pageData.title
+      ogImage = `${SITE_URL}${imagePath}`
+    }
+
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['meta', { property: 'og:title', content: ogTitle }],
+      ['meta', { property: 'og:image', content: ogImage }],
+      ['meta', { name: 'twitter:title', content: ogTitle }],
+      ['meta', { name: 'twitter:image', content: ogImage }],
+    )
   },
 })
