@@ -1,7 +1,3 @@
-<script setup>
-  import WritingLanding from './components/WritingLanding.vue'
-</script>
-
 # Writing
 
 This is where I write about the things I learn while building software. Most of it comes from real problems I run into at work or in my open-source projects.

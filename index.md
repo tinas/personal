@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Writing
-      link: /writing
+      link: /writing/
     - theme: alt
       text: About Me
       link: /about-me

@@ -1,6 +1,7 @@
-<script setup lang="ts">
-import WritingImage from '@theme/components/WritingImage.vue'
-</script>
+---
+title: The URL was always the state, we just kept ignoring it
+description: A new composable for syncing URL parameters with reactive state in Vue.
+---
 
 # The URL was always the state, we just kept ignoring it
 

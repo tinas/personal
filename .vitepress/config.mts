@@ -11,6 +11,7 @@ export default defineConfig({
   description: OG_DESCRIPTION,
 
   cleanUrls: true,
+  lastUpdated: true,
 
   sitemap: {
     hostname: SITE_URL,
@@ -50,7 +51,7 @@ export default defineConfig({
     },
 
     nav: [
-      { text: 'Writing', link: '/writing', activeMatch: '/writing/' },
+      { text: 'Writing', link: '/writing/' },
       { text: 'About Me', link: '/about-me' },
     ],
 
@@ -65,5 +66,32 @@ export default defineConfig({
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
       { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
     ],
+  },
+
+  transformPageData(pageData) {
+    const isWriting = pageData.relativePath.startsWith('writing/')
+    const isIndex = pageData.relativePath.endsWith('index.md')
+
+    if (!isWriting || isIndex)
+      return
+
+    const title = pageData.frontmatter.title || pageData.title
+    const description = pageData.frontmatter.description || pageData.description
+
+    const slug = pageData.relativePath.replace(/\.md$/, '')
+    const image = `${SITE_URL}/${slug}.jpg`
+    const pageUrl = `${SITE_URL}/${slug}`
+
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:image', content: image }],
+      ['meta', { property: 'og:url', content: pageUrl }],
+      ['meta', { property: 'og:type', content: 'article' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+      ['meta', { name: 'twitter:image', content: image }],
+    )
   },
 })
