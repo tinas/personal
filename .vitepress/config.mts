@@ -78,9 +78,9 @@ export default defineConfig({
     const title = pageData.frontmatter.title || pageData.title
     const description = pageData.frontmatter.description || pageData.description
 
-    const slug = pageData.relativePath.replace(/\.md$/, '')
-    const image = `${SITE_URL}/${slug}.jpg`
-    const pageUrl = `${SITE_URL}/${slug}`
+    const slug = pageData.relativePath.replace(/^writing\//, '').replace(/\.md$/, '')
+    const image = `${SITE_URL}/og/${slug}.jpg`
+    const pageUrl = `${SITE_URL}/writing/${slug}`
 
     pageData.frontmatter.head ??= []
     pageData.frontmatter.head.push(

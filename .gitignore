@@ -3,3 +3,4 @@
 
 .vitepress/dist
 .vitepress/cache
+public/og
