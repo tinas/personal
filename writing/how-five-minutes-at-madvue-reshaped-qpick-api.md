@@ -55,10 +55,10 @@ If you look at the [URL Standard's goals](https://url.spec.whatwg.org/#goals), i
 
 > Ensure the combination of parser, serializer, and API guarantee idempotence. For example, a non-failure result of a parse-then-serialize operation will not change with any further parse-then-serialize operations applied to it. Similarly, manipulating a non-failure result through the API will not change from applying any number of serialize-then-parse operations to it.
 
-A simple way to think about this: `Math.abs()` is an idempotent function.
+A simple way to think about this: a function is idempotent when applying it twice gives the same result as applying it once.
 
-```ts
-Math.abs(Math.abs(-5)) === Math.abs(-5) // true — applying it twice is the same as once
+```
+f(f(x)) = f(x)
 ```
 
 For a URL parser, the equivalent guarantee is:
@@ -94,11 +94,9 @@ function shouldClear<T>(parser: Parser<T>, value: T, clearOnDefault: boolean): b
 
 This is simpler and more correct. If your serializer is idempotent, comparing serialized output is the canonical way to check equality. No custom `eq` needed.
 
-## Naming Conventions
+## The New API
 
 I also renamed `createParser` to `defineParser` to align with Vue ecosystem conventions (`defineComponent`, `defineStore`, `defineEmits`...). Small change, but it makes the API feel more at home in a Vue project.
-
-## The New API
 
 Here's what a custom parser looks like in alpha-2:
 
@@ -126,4 +124,4 @@ This change came from a five-minute hallway conversation. I could have stared at
 
 That's what events like MadVue give you. A different set of eyes, a different frame of reference, and access to people who've been thinking about these problems longer than you have. Oh, and apparently we were the first Turkish attendees in MadVue's history. 😅
 
-You can find all the **alpha-2** changes on [GitHub](https://github.com/tinas/qpick/blob/main/CHANGELOG.md#v100-alpha2).
+You can find all the **alpha-2** changes on [GitHub](https://github.com/tinas/qpick/blob/main/CHANGELOG.md#v100-alpha2). If you're using qpick, I'd love to hear how the new API feels.
