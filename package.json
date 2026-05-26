@@ -11,14 +11,15 @@
     "lint:fix": "eslint --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.7.2",
-    "@types/node": "^25.5.0",
-    "eslint": "^10.0.3",
+    "@antfu/eslint-config": "^7.7.3",
+    "@types/node": "^25.9.1",
+    "eslint": "^10.4.0",
+    "gray-matter": "^4.0.3",
     "satori": "^0.25.0",
     "sharp": "^0.34.5",
-    "tsx": "^4.21.0",
-    "vitepress": "2.0.0-alpha.16",
-    "vue": "^3.5.30"
+    "tsx": "^4.22.3",
+    "vitepress": "2.0.0-alpha.17",
+    "vue": "^3.5.34"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

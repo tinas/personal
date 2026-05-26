@@ -1,21 +1,51 @@
 ---
 title: The URL was always the state, we just kept ignoring it
 description: A new composable for syncing URL parameters with reactive state in Vue.
+date: 2026-03-14
+photo:
+  by: Javier Allegue Barros
+  href: https://unsplash.com/@soymeraki
+  image: /writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
+head:
+  - - meta
+    - property: og:title
+      content: The URL was always the state, we just kept ignoring it
+  - - meta
+    - property: og:description
+      content: A new composable for syncing URL parameters with reactive state in Vue.
+  - - meta
+    - property: og:image
+      content: https://www.tinas.dev/og/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
+  - - meta
+    - property: og:url
+      content: https://www.tinas.dev/writing/the-url-was-always-the-state-we-just-kept-ignoring-it
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - name: twitter:title
+      content: The URL was always the state, we just kept ignoring it
+  - - meta
+    - name: twitter:description
+      content: A new composable for syncing URL parameters with reactive state in Vue.
+  - - meta
+    - name: twitter:image
+      content: https://www.tinas.dev/og/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
 ---
 
 # The URL was always the state, we just kept ignoring it
 
-<WritingImage
-  imagePath="/writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg"
-  imageBy="Javier Allegue Barros"
-  imageByHref="https://unsplash.com/@soymeraki"
-/>
+<WritingMeta />
+
+<WritingImage />
 
 Every Vue app eventually has *that* moment. You build a product listing page with filters, sorting, pagination, the works. It feels great. Then someone shares the link, the other person opens it, and everything is gone. All that carefully managed state lived in a `ref()` somewhere in memory, not in the URL where it actually belonged.
 
 So you do the responsible thing: you start syncing state with `route.query`. You write a watcher. Then another one. Then you realize `route.query.page` is a string and your pagination logic just did `"2" + 1 = "21"`. You add `parseInt`. A fallback. Another watcher for the back button. Forty lines later, you have a working page parameter and you haven't even started on `sort`.
 
-I got tired of writing that code. So I wrote [qpick](https://github.com/tinas/qpick) 🍒
+To be fair, the title is intentionally dramatic. URL is not where all app state should live: it only carries strings, and browsers/servers impose practical URL length limits. So the right target is shareable, navigable UI state (like filters, sorting, pagination), not large or sensitive data.
+
+I got tired of writing that code. So I wrote [qpick](https://github.com/tinas/qpick)
 
 ## What's in a Name?
 

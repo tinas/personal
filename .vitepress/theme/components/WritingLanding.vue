@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import writings from './writings.json'
+import { data as writings } from './writings.data'
 </script>
 
 <template>
   <div class="writing-landing">
     <a
       v-for="writing in writings"
-      :key="writing.writingSlug"
-      :href="`/writing/${writing.writingSlug}`"
+      :key="writing.slug"
+      :href="`/writing/${writing.slug}`"
       class="writing"
     >
       <img :src="writing.photo.image" :alt="writing.photo.by">
+      <time :datetime="writing.date">
+        {{ new Date(writing.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
+      </time>
       <span>{{ writing.title }}</span>
     </a>
   </div>
@@ -42,10 +45,17 @@ import writings from './writings.json'
   height: 180px;
   border-radius: 6px;
   object-fit: cover;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
+.writing time {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+  padding-top: 0.5rem;
+}
 .writing span {
-  padding-top: 1rem;
+  padding-top: 0.25rem;
 }
 
 .writing:hover {

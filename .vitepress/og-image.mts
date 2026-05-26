@@ -1,17 +1,22 @@
 import { Buffer } from 'node:buffer'
-import { readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import matter from 'gray-matter'
 import satori from 'satori'
 import sharp from 'sharp'
+import { estimateReadingTime, formatDate } from './utils'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const publicDir = resolve(__dirname, '../public')
+const MD_EXTENSION_REGEX = /\.md$/
 
 interface Writing {
   writingSlug: string
   title: string
+  date: string
+  readingTime: number
   photo: {
     by: string
     image: string
@@ -39,6 +44,7 @@ async function resizeArticlePhoto(imagePath: string, width: number, height: numb
 }
 
 function buildMarkup(writing: Writing, profileSrc: string, bgPhotoSrc: string, cardPhotoSrc: string) {
+  const meta = `${formatDate(writing.date)} · ${writing.readingTime} min read`
   return {
     type: 'div',
     props: {
@@ -119,19 +125,43 @@ function buildMarkup(writing: Writing, profileSrc: string, bgPhotoSrc: string, c
                         children: 'tinas.dev',
                       },
                     },
-                    // Middle: Title
+                    // Middle: Title + meta
                     {
                       type: 'div',
                       props: {
                         style: {
                           display: 'flex',
-                          fontSize: writing.title.length > 60 ? '42px' : '52px',
-                          color: '#ffffff',
-                          fontWeight: 700,
-                          lineHeight: 1.2,
-                          letterSpacing: '-0.03em',
+                          flexDirection: 'column',
+                          gap: '12px',
                         },
-                        children: writing.title,
+                        children: [
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                display: 'flex',
+                                fontSize: writing.title.length > 60 ? '42px' : '52px',
+                                color: '#ffffff',
+                                fontWeight: 700,
+                                lineHeight: 1.2,
+                                letterSpacing: '-0.03em',
+                              },
+                              children: writing.title,
+                            },
+                          },
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                display: 'flex',
+                                fontSize: '18px',
+                                color: 'rgba(255, 255, 255, 0.6)',
+                                fontWeight: 400,
+                              },
+                              children: meta,
+                            },
+                          },
+                        ],
                       },
                     },
                     // Bottom: Profile + name
@@ -206,14 +236,33 @@ function buildMarkup(writing: Writing, profileSrc: string, bgPhotoSrc: string, c
 }
 
 export async function generateOgImages(fontPath: string) {
-  const writings: Writing[] = JSON.parse(
-    readFileSync(resolve(__dirname, 'theme/components/writings.json'), 'utf-8'),
-  )
+  const writingDir = resolve(__dirname, '../writing')
+  const files = readdirSync(writingDir).filter(f => f.endsWith('.md') && f !== 'index.md')
+
+  const writings: Writing[] = files.map((file) => {
+    const content = readFileSync(resolve(writingDir, file), 'utf-8')
+    const { data } = matter(content)
+    const slug = file.replace(MD_EXTENSION_REGEX, '')
+    return {
+      writingSlug: slug,
+      title: data.title,
+      date: data.date,
+      readingTime: estimateReadingTime(content),
+      photo: data.photo,
+    }
+  })
 
   const font = loadFont(fontPath)
   const profileSrc = loadImageAsBase64(resolve(publicDir, 'profile.png'))
 
   for (const writing of writings) {
+    const outputPath = resolve(publicDir, 'og', `${writing.writingSlug}.jpg`)
+
+    if (existsSync(outputPath)) {
+      console.warn(`Skipped (already exists): og/${writing.writingSlug}.jpg`)
+      continue
+    }
+
     const imagePath = writing.photo.image.startsWith('/')
       ? writing.photo.image.slice(1)
       : writing.photo.image
@@ -251,11 +300,10 @@ export async function generateOgImages(fontPath: string) {
       ],
     })
 
-    const outputPath = resolve(publicDir, 'og', `${writing.writingSlug}.jpg`)
     await mkdir(dirname(outputPath), { recursive: true })
     const jpgBuffer = await sharp(Buffer.from(svg)).jpeg({ quality: 90 }).toBuffer()
     await writeFile(outputPath, jpgBuffer)
 
-    console.warn(`Generated: writing/${writing.writingSlug}.jpg`)
+    console.warn(`Generated: og/${writing.writingSlug}.jpg`)
   }
 }

@@ -1,4 +1,10 @@
+import { readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitepress'
+import { estimateReadingTime } from './utils'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const SITE_URL = 'https://www.tinas.dev'
 const IMAGE_URL = `${SITE_URL}/thumb.jpg`
@@ -11,7 +17,6 @@ export default defineConfig({
   description: OG_DESCRIPTION,
 
   cleanUrls: true,
-  lastUpdated: true,
 
   sitemap: {
     hostname: SITE_URL,
@@ -56,7 +61,7 @@ export default defineConfig({
     ],
 
     footer: {
-      copyright: `© 2026 ${OG_TITLE}`,
+      copyright: `© ${new Date().getFullYear()} ${OG_TITLE}`,
     },
 
     socialLinks: [
@@ -69,29 +74,11 @@ export default defineConfig({
   },
 
   transformPageData(pageData) {
-    const isWriting = pageData.relativePath.startsWith('writing/')
-    const isIndex = pageData.relativePath.endsWith('index.md')
-
-    if (!isWriting || isIndex)
+    if (!pageData.relativePath.startsWith('writing/') || pageData.relativePath.endsWith('index.md'))
       return
 
-    const title = pageData.frontmatter.title || pageData.title
-    const description = pageData.frontmatter.description || pageData.description
-
-    const slug = pageData.relativePath.replace(/^writing\//, '').replace(/\.md$/, '')
-    const image = `${SITE_URL}/og/${slug}.jpg`
-    const pageUrl = `${SITE_URL}/writing/${slug}`
-
-    pageData.frontmatter.head ??= []
-    pageData.frontmatter.head.push(
-      ['meta', { property: 'og:title', content: title }],
-      ['meta', { property: 'og:description', content: description }],
-      ['meta', { property: 'og:image', content: image }],
-      ['meta', { property: 'og:url', content: pageUrl }],
-      ['meta', { property: 'og:type', content: 'article' }],
-      ['meta', { name: 'twitter:title', content: title }],
-      ['meta', { name: 'twitter:description', content: description }],
-      ['meta', { name: 'twitter:image', content: image }],
-    )
+    const filePath = resolve(__dirname, '..', pageData.relativePath)
+    const content = readFileSync(filePath, 'utf-8')
+    pageData.frontmatter.readingTime = estimateReadingTime(content)
   },
 })

@@ -4,6 +4,7 @@ import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import WritingImage from './components/WritingImage.vue'
 import WritingLanding from './components/WritingLanding.vue'
+import WritingMeta from './components/WritingMeta.vue'
 import './style.css'
 
 export default {
@@ -16,5 +17,6 @@ export default {
   enhanceApp({ app }) {
     app.component('WritingLanding', WritingLanding)
     app.component('WritingImage', WritingImage)
+    app.component('WritingMeta', WritingMeta)
   },
 } satisfies Theme

@@ -1,31 +1,33 @@
 <script setup lang="ts">
-defineProps({
-  imagePath: String,
-  imageBy: String,
-  imageByHref: String,
-})
+import { useData } from 'vitepress'
+import { computed } from 'vue'
+
+const { frontmatter } = useData()
+
+const photo = computed<{ by?: string, href?: string, image?: string } | undefined>(() => frontmatter.value.photo)
+const imagePath = computed(() => photo.value?.image)
+const imageBy = computed(() => photo.value?.by)
+const imageByHref = computed(() => photo.value?.href)
 </script>
 
 <template>
-  <div class="writing-image">
-    <img :src="imagePath" :alt="`Photo by ${imageBy}`">
-    <p class="photo-by">
+  <div v-if="imagePath" class="writing-image">
+    <img :src="imagePath" :alt="imageBy ? `Photo by ${imageBy}` : 'Writing image'">
+    <p v-if="imageBy" class="photo-by">
       Photo by
-      <a :href="imageByHref" target="_blank" rel="noopener">{{ imageBy }}</a>
+      <a v-if="imageByHref" :href="imageByHref" target="_blank" rel="noopener">{{ imageBy }}</a>
+      <span v-else>{{ imageBy }}</span>
     </p>
   </div>
 </template>
 
 <style scoped>
 .writing-image {
-  margin: 2rem auto;
-  max-width: 600px;
   text-align: center;
 }
 
 .writing-image img {
   width: 100%;
-  border-radius: 8px;
 }
 
 .photo-by {
