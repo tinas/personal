@@ -115,6 +115,10 @@ const parseAsPriceRange = createParser<{ min: number, max: number }>({
 
 Same pattern, same guarantees, your own domain types.
 
+::: info Update (May 2026)
+In qpick alpha-2, `createParser` has been renamed to `defineParser` and the `eq` option has been removed in favor of idempotent serialization. Equality is now determined by comparing serialized output (`serialize(a) === serialize(b)`), which is both simpler and more correct. See [How Five Minutes at MadVue Reshaped qpick's API](/writing/how-five-minutes-at-madvue-reshaped-qpick-api) for the full story behind this change.
+:::
+
 ## More Than One Parameter
 
 Most pages you'll work on have several URL parameters that need to stay in sync. qpick handles this by accepting an array of configs and returning an object of refs:
@@ -178,7 +182,7 @@ And the plugin is entirely optional. If you have `vue-router`, `useRouteState` w
 ## Give It a Spin
 
 ```bash
-npm install qpick
+pnpm add qpick
 ```
 
 The whole thing is one composable, a set of parsers, and a [README](https://github.com/tinas/qpick) that should get you running in a few minutes. If you've ever caught yourself manually syncing `route.query` with a ref and thought "there has to be a better way", I'd love for you to give it a try.
