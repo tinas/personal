@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const SITE_URL = 'https://www.tinas.dev'
 const IMAGE_URL = `${SITE_URL}/thumb.jpg`
 const OG_TITLE = 'Ahmet Tınastepe'
-const OG_DESCRIPTION = 'simplifying things for a living. sometimes it\'s code, sometimes it\'s dinner.'
+const OG_DESCRIPTION = 'I build things for the web at MobileAction, and I maintain a handful of open-source libraries. Here I keep notes on what I\'m working on and the problems I run into along the way.'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
