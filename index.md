@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: Ahmet Tınastepe
-  text: writes code for humans
-  tagline: simplifying things for a living. sometimes it's code, sometimes it's dinner.
+  tagline: I build things for the web at MobileAction, and I maintain a handful of open-source libraries. Here I keep notes on what I'm working on and the problems I run into along the way.
   image:
     src: /profile.png
     alt: profile photo
