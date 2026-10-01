@@ -1,3 +1,4 @@
+import { inject } from '@vercel/analytics'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme-without-fonts'
 
@@ -23,5 +24,9 @@ export default {
     app.component('WritingImage', WritingImage)
     app.component('WritingList', WritingList)
     app.component('WritingMeta', WritingMeta)
+
+    // Cookieless page views, client-side navigations included. A no-op during
+    // SSR; in dev it only logs to the console.
+    inject()
   },
 } satisfies Theme
