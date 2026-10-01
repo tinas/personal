@@ -6,31 +6,6 @@ photo:
   by: Victor
   href: https://unsplash.com/@victor_g
   image: /writing/how-five-minutes-at-madvue-reshaped-qpick-api.jpg
-head:
-  - - meta
-    - property: og:title
-      content: How Five Minutes at MadVue Reshaped qpick's API
-  - - meta
-    - property: og:description
-      content: How a five-minute conversation at MadVue led to removing eq from qpick's parser system and embracing idempotency.
-  - - meta
-    - property: og:image
-      content: https://www.tinas.dev/og/how-five-minutes-at-madvue-reshaped-qpick-api.jpg
-  - - meta
-    - property: og:url
-      content: https://www.tinas.dev/writing/how-five-minutes-at-madvue-reshaped-qpick-api
-  - - meta
-    - property: og:type
-      content: article
-  - - meta
-    - name: twitter:title
-      content: How Five Minutes at MadVue Reshaped qpick's API
-  - - meta
-    - name: twitter:description
-      content: How a five-minute conversation at MadVue led to removing eq from qpick's parser system and embracing idempotency.
-  - - meta
-    - name: twitter:image
-      content: https://www.tinas.dev/og/how-five-minutes-at-madvue-reshaped-qpick-api.jpg
 ---
 
 # How Five Minutes at MadVue Reshaped qpick's API
