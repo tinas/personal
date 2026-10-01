@@ -15,8 +15,6 @@ const isWritingPost = computed(() => getWritingSlug(page.value.relativePath) !==
 
 <template>
   <div class="layout">
-    <div v-if="isWritingPost" class="reading-progress" aria-hidden="true" />
-
     <SiteHeader />
 
     <!-- Keyed per page so the entrance animations replay on navigation. -->
@@ -63,24 +61,5 @@ const isWritingPost = computed(() => getWritingSlug(page.value.relativePath) !==
 .not-found-code {
   margin: 0 0 0.75rem;
   color: var(--vp-c-text-3);
-}
-
-.reading-progress {
-  display: none;
-}
-
-@supports (animation-timeline: scroll()) {
-  .reading-progress {
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 10;
-    display: block;
-    height: 2px;
-    background-color: var(--vp-c-brand-1);
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: reading-progress linear both;
-    animation-timeline: scroll(root);
-  }
 }
 </style>

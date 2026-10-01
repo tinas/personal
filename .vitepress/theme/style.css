@@ -408,12 +408,6 @@ a[target='_blank'] {
   }
 }
 
-@keyframes reading-progress {
-  to {
-    transform: scaleX(1);
-  }
-}
-
 /* Reading pages: the first blocks rise in one after another. Content is
    re-keyed per route, so this replays on every navigation. Browsers without
    `sibling-index()` drop the delay and show the blocks rising together. */
@@ -435,8 +429,7 @@ a[target='_blank'] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* The reading progress bar is scroll-driven, so it only moves with the reader. */
-  *:not(.reading-progress),
+  *,
   *::before,
   *::after {
     animation-delay: 0s !important;
