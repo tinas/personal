@@ -6,31 +6,6 @@ photo:
   by: Javier Allegue Barros
   href: https://unsplash.com/@soymeraki
   image: /writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
-head:
-  - - meta
-    - property: og:title
-      content: The URL was always the state, we just kept ignoring it
-  - - meta
-    - property: og:description
-      content: A new composable for syncing URL parameters with reactive state in Vue.
-  - - meta
-    - property: og:image
-      content: https://www.tinas.dev/og/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
-  - - meta
-    - property: og:url
-      content: https://www.tinas.dev/writing/the-url-was-always-the-state-we-just-kept-ignoring-it
-  - - meta
-    - property: og:type
-      content: article
-  - - meta
-    - name: twitter:title
-      content: The URL was always the state, we just kept ignoring it
-  - - meta
-    - name: twitter:description
-      content: A new composable for syncing URL parameters with reactive state in Vue.
-  - - meta
-    - name: twitter:image
-      content: https://www.tinas.dev/og/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
 ---
 
 # The URL was always the state, we just kept ignoring it

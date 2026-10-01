@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .cover { fill: #2a2118 }
+    .ribbon { fill: #c4552b }
+    @media (prefers-color-scheme: dark) {
+      .cover { fill: #ede3d3 }
+      .ribbon { fill: #d4683d }
+    }
+  </style>
+  <!-- A closed book with a bookmark ribbon hanging out of it -->
+  <rect class="cover" x="5" y="2" width="22" height="28" rx="3" />
+  <path class="ribbon" d="M17 2h6v15l-3-2.5-3 2.5z" />
+</svg>

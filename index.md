@@ -1,18 +1,15 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
-hero:
-  name: Ahmet Tınastepe
-  tagline: I build things for the web at MobileAction, and I maintain a handful of open-source libraries. Here I keep notes on what I'm working on and the problems I run into along the way.
-  image:
-    src: /profile.png
-    alt: profile photo
-  actions:
-    - theme: brand
-      text: Writing
-      link: /writing/
-    - theme: alt
-      text: About Me
-      link: /about-me
 ---
+
+<HomeIntro>
+
+Hi, I'm Ahmet. I write code for the web, mostly Vue and TypeScript, at MobileAction and in a handful of open-source libraries I look after.
+
+This is where I think out loud: bugs that took me too long, API decisions I changed my mind about, and the small things I'd rather not forget.
+
+</HomeIntro>
+
+## Contents
+
+<WritingList />

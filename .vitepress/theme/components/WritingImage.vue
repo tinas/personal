@@ -4,42 +4,56 @@ import { computed } from 'vue'
 
 const { frontmatter } = useData()
 
-const photo = computed<{ by?: string, href?: string, image?: string } | undefined>(() => frontmatter.value.photo)
+const photo = computed<{ by?: string; href?: string; image?: string } | undefined>(() => frontmatter.value.photo)
 const imagePath = computed(() => photo.value?.image)
 const imageBy = computed(() => photo.value?.by)
 const imageByHref = computed(() => photo.value?.href)
 </script>
 
 <template>
-  <div v-if="imagePath" class="writing-image">
-    <img :src="imagePath" :alt="imageBy ? `Photo by ${imageBy}` : 'Writing image'">
-    <p v-if="imageBy" class="photo-by">
+  <figure v-if="imagePath" class="writing-image">
+    <img :src="imagePath" :alt="imageBy ? `Photo by ${imageBy}` : ''" />
+    <figcaption v-if="imageBy" class="photo-by">
       Photo by
       <a v-if="imageByHref" :href="imageByHref" target="_blank" rel="noopener">{{ imageBy }}</a>
       <span v-else>{{ imageBy }}</span>
-    </p>
-  </div>
+    </figcaption>
+  </figure>
 </template>
 
 <style scoped>
 .writing-image {
-  text-align: center;
+  margin: 2.5rem 0 3rem;
 }
 
 .writing-image img {
   width: 100%;
+  margin: 0;
+  filter: sepia(0.12);
+}
+
+/* Wider than the text column, like a plate in a book. */
+@media (min-width: 60rem) {
+  .writing-image {
+    margin-inline: -5rem;
+  }
 }
 
 .photo-by {
+  margin-top: 0.75rem;
   font-size: 0.875rem;
-  margin-top: 0.5rem;
+  font-style: italic;
+  text-align: center;
+  color: var(--vp-c-text-3);
 }
 
 .photo-by a {
+  color: inherit;
   text-decoration: none;
 }
 
 .photo-by a:hover {
+  color: var(--vp-c-text-1);
   text-decoration: underline;
 }
 </style>
