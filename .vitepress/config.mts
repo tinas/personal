@@ -1,19 +1,23 @@
 import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import { defineConfig } from 'vitepress'
-import { estimateReadingTime } from './utils'
+
+import { estimateReadingTime, getWritingSlug } from './utils'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const SITE_URL = 'https://www.tinas.dev'
 const IMAGE_URL = `${SITE_URL}/thumb.jpg`
-const OG_TITLE = 'Ahmet Tınastepe'
-const OG_DESCRIPTION = 'I build things for the web at MobileAction, and I maintain a handful of open-source libraries. Here I keep notes on what I\'m working on and the problems I run into along the way.'
+const SITE_TITLE = 'Ahmet Tınastepe'
+const OG_TITLE = 'Ahmet Tinastepe'
+const OG_DESCRIPTION =
+  "I build things for the web at MobileAction, and I maintain a handful of open-source libraries. Here I keep notes on what I'm working on and the problems I run into along the way."
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: OG_TITLE,
+  title: SITE_TITLE,
   description: OG_DESCRIPTION,
 
   cleanUrls: true,
@@ -22,18 +26,19 @@ export default defineConfig({
     hostname: SITE_URL,
   },
 
+  markdown: {
+    theme: {
+      light: 'gruvbox-light-medium',
+      dark: 'gruvbox-dark-medium',
+    },
+  },
+
   head: [
-    [
-      'link',
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%23FF7A3D%22/><text x=%2250%25%22 y=%2258%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2270%22 fill=%22white%22 font-family=%22Arial, sans-serif%22>A</text></svg>',
-      },
-    ],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
 
     ['meta', { name: 'author', content: OG_TITLE }],
-    ['meta', { name: 'theme-color', content: '#ff7a3d' }],
+    ['meta', { name: 'theme-color', content: '#f8f1e3', media: '(prefers-color-scheme: light)' }],
+    ['meta', { name: 'theme-color', content: '#1b1611', media: '(prefers-color-scheme: dark)' }],
 
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'tinas.dev' }],
@@ -49,33 +54,28 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-
-    search: {
-      provider: 'local',
-    },
+    // Only `nav`, `socialLinks` and `footer` are used, by the custom Layout.
 
     nav: [
       { text: 'Writing', link: '/writing/' },
-      { text: 'About Me', link: '/about-me' },
+      { text: 'About', link: '/about-me' },
     ],
 
     footer: {
-      copyright: `© ${new Date().getFullYear()} ${OG_TITLE}`,
+      copyright: `© ${new Date().getFullYear()} ${SITE_TITLE}`,
     },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/tinas' },
-      { icon: 'figma', link: 'https://figma.com/@tinas' },
       { icon: 'x', link: 'https://x.com/tinasdev' },
+      { icon: 'bluesky', link: 'https://bsky.app/profile/tinas.dev' },
       { icon: 'instagram', link: 'https://instagram.com/tinasdev' },
-      { icon: 'bluesky', link: 'https://bsky.app/profile/tinasdev.bsky.social' },
+      { icon: 'figma', link: 'https://figma.com/@tinas' },
     ],
   },
 
   transformPageData(pageData) {
-    if (!pageData.relativePath.startsWith('writing/') || pageData.relativePath.endsWith('index.md'))
-      return
+    if (!getWritingSlug(pageData.relativePath)) return
 
     const filePath = resolve(__dirname, '..', pageData.relativePath)
     const content = readFileSync(filePath, 'utf-8')

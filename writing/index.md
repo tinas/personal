@@ -1,9 +1,7 @@
 # Writing
 
-This is where I write about the things I learn while building software. Most of it comes from real problems I run into at work or in my open-source projects.
+Notes from building things. Most of them start with a real problem, at work or in one of my libraries, that I couldn't stop thinking about until I wrote it down.
 
-Some posts are practical walkthroughs, some are things I figured out after hours of debugging, and some are just ideas I wanted to think through by writing them down.
+Some are walkthroughs, some are the story behind a fix, and some are me changing my mind in public. If one of them saves you an afternoon, that's the whole point.
 
----
-
-<WritingLanding />
+<WritingList />

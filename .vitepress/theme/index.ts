@@ -1,22 +1,27 @@
 import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
+import DefaultTheme from 'vitepress/theme-without-fonts'
+
+import HomeIntro from './components/HomeIntro.vue'
 import WritingImage from './components/WritingImage.vue'
-import WritingLanding from './components/WritingLanding.vue'
+import WritingList from './components/WritingList.vue'
 import WritingMeta from './components/WritingMeta.vue'
+import Layout from './Layout.vue'
+
+import '@fontsource-variable/literata/opsz.css'
+import '@fontsource-variable/literata/opsz-italic.css'
+import '@fontsource-variable/geist-mono/wght.css'
 import './style.css'
 
+// https://vitepress.dev/guide/custom-theme
+// Extending the default theme keeps its markdown styles (code blocks, code
+// groups, custom containers) while the page chrome comes from our own Layout.
 export default {
   extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
-  },
+  Layout,
   enhanceApp({ app }) {
-    app.component('WritingLanding', WritingLanding)
+    app.component('HomeIntro', HomeIntro)
     app.component('WritingImage', WritingImage)
+    app.component('WritingList', WritingList)
     app.component('WritingMeta', WritingMeta)
   },
 } satisfies Theme
