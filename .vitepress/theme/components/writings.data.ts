@@ -1,6 +1,6 @@
 import { createContentLoader } from 'vitepress'
 
-import { isPublished } from '../../utils'
+import { isPublished } from '../../utils.ts'
 
 export interface WritingData {
   slug: string

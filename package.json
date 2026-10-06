@@ -1,6 +1,7 @@
 {
   "name": "personal",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "pnpm run og && vitepress build",

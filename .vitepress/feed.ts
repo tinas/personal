@@ -5,7 +5,7 @@ import { Feed } from 'feed'
 import type { SiteConfig } from 'vitepress'
 import { createContentLoader } from 'vitepress'
 
-import { isPublished } from './utils'
+import { isPublished } from './utils.ts'
 
 const COMPONENT_TAG_REGEX = /<Writing[A-Z]\w*\s*\/>/g
 const HEADER_ANCHOR_REGEX = /<a class="header-anchor"[^>]*>[\s\S]*?<\/a>/g

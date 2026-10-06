@@ -5,9 +5,9 @@ import { fileURLToPath } from 'node:url'
 import type { HeadConfig } from 'vitepress'
 import { defineConfig } from 'vitepress'
 
-import { generateFeed } from './feed'
-import { OG_IMAGE_SIZE, SITE_DESCRIPTION, SITE_OG_IMAGE, SITE_TITLE, SITE_URL } from './site'
-import { estimateReadingTime, getWritingSlug, isPublished } from './utils'
+import { generateFeed } from './feed.ts'
+import { OG_IMAGE_SIZE, SITE_DESCRIPTION, SITE_OG_IMAGE, SITE_TITLE, SITE_URL } from './site.ts'
+import { estimateReadingTime, getWritingSlug, isPublished } from './utils.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -30,6 +30,12 @@ export default defineConfig({
 
   sitemap: {
     hostname: SITE_URL,
+  },
+
+  vite: {
+    // Only imported by the theme, so Vite would find it on the first dev page
+    // load and reload the page to optimize it.
+    optimizeDeps: { include: ['@vercel/analytics'] },
   },
 
   markdown: {
