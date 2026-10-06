@@ -8,10 +8,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit",
     "source.organizeImports": "never"
-  },
-
-  // Blog posts are left exactly as written (see `ignorePatterns` in .oxfmtrc.json)
-  "[markdown]": {
-    "editor.formatOnSave": false
   }
 }

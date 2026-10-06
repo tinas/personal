@@ -22,7 +22,7 @@ It's about a five-minute conversation that changed how [qpick](https://github.co
 
 I'd been wanting to get feedback on qpick from [Eduardo](https://bsky.app/profile/esm.dev) (the author and maintainer of vue-router and pinia). He pulled up the docs, read through them for a few minutes, and pointed at something I'd completely overlooked: **idempotency**.
 
-I'd spent so much time thinking about reactivity that I missed something equally fundamental to a URL parser library. When you parse a value from the URL and serialize it back, you should get the same string. Always. And if you parse *that* string again, you should get the same value. No matter how many times you repeat the cycle.
+I'd spent so much time thinking about reactivity that I missed something equally fundamental to a URL parser library. When you parse a value from the URL and serialize it back, you should get the same string. Always. And if you parse _that_ string again, you should get the same value. No matter how many times you repeat the cycle.
 
 ## What the Spec Says
 

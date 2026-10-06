@@ -14,7 +14,7 @@ photo:
 
 <WritingImage />
 
-Every Vue app eventually has *that* moment. You build a product listing page with filters, sorting, pagination, the works. It feels great. Then someone shares the link, the other person opens it, and everything is gone. All that carefully managed state lived in a `ref()` somewhere in memory, not in the URL where it actually belonged.
+Every Vue app eventually has _that_ moment. You build a product listing page with filters, sorting, pagination, the works. It feels great. Then someone shares the link, the other person opens it, and everything is gone. All that carefully managed state lived in a `ref()` somewhere in memory, not in the URL where it actually belonged.
 
 So you do the responsible thing: you start syncing state with `route.query`. You write a watcher. Then another one. Then you realize `route.query.page` is a string and your pagination logic just did `"2" + 1 = "21"`. You add `parseInt`. A fallback. Another watcher for the back button. Forty lines later, you have a working page parameter and you haven't even started on `sort`.
 
@@ -72,10 +72,10 @@ qpick ships with parsers for the common cases like `parseAsFloat`, `parseAsBoole
 When the built-ins don't cover your case, `createParser` lets you bring your own types:
 
 ```ts
-const parseAsPriceRange = createParser<{ min: number, max: number }>({
+const parseAsPriceRange = createParser<{ min: number; max: number }>({
   parse(value) {
     const [min, max] = value.split('-').map(Number)
-    return (Number.isNaN(min) || Number.isNaN(max)) ? null : { min, max }
+    return Number.isNaN(min) || Number.isNaN(max) ? null : { min, max }
   },
   serialize(value) {
     return `${value.min}-${value.max}`
@@ -116,9 +116,12 @@ filters.set({ q: 'headphones', page: 1 })
 One navigation. One history entry. No intermediate flicker. There's also `filters.reset()` to restore everything to defaults, and `filters.toObject()` when you need a plain object for an API call:
 
 ```ts
-watch(() => filters.toObject(), (params) => {
-  fetchProducts(params)
-})
+watch(
+  () => filters.toObject(),
+  params => {
+    fetchProducts(params)
+  },
+)
 ```
 
 ## Configs That Travel Between Components

@@ -4,6 +4,5 @@
   "semi": false,
   "singleQuote": true,
   "arrowParens": "avoid",
-  "sortImports": {},
-  "ignorePatterns": ["writing/**"]
+  "sortImports": {}
 }
