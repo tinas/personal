@@ -42,10 +42,10 @@ export async function generateFeed(config: SiteConfig, { siteUrl, title, descrip
     author,
   })
 
-  const posts = await createContentLoader('writing/*.md', { render: true }).load()
+  const posts = await createContentLoader('writing/*/index.md', { render: true }).load()
 
   posts
-    .filter(post => !post.url.endsWith('/writing/') && isPublished(post.frontmatter))
+    .filter(post => isPublished(post.frontmatter))
     .toSorted((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
     .forEach(({ url, frontmatter, html }) => {
       const link = `${siteUrl}${url}`

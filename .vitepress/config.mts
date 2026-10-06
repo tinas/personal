@@ -22,6 +22,12 @@ export default defineConfig({
 
   cleanUrls: true,
 
+  // Each post is a folder holding its `index.md` and everything it uses
+  // (images and so on), yet keeps the flat `/writing/<slug>` URL.
+  rewrites: {
+    'writing/:slug/index.md': 'writing/:slug.md',
+  },
+
   sitemap: {
     hostname: SITE_URL,
   },
@@ -66,7 +72,7 @@ export default defineConfig({
   transformPageData(pageData) {
     if (!getWritingSlug(pageData.relativePath)) return
 
-    const filePath = resolve(__dirname, '..', pageData.relativePath)
+    const filePath = resolve(__dirname, '..', pageData.filePath)
     const content = readFileSync(filePath, 'utf-8')
     pageData.frontmatter.readingTime = estimateReadingTime(content)
   },

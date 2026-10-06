@@ -5,7 +5,7 @@ date: 2026-05-26
 photo:
   by: Victor
   href: https://unsplash.com/@victor_g
-  image: /writing/how-five-minutes-at-madvue-reshaped-qpick-api.jpg
+  image: ./cover.jpg
 ---
 
 # How Five Minutes at MadVue Reshaped qpick's API

@@ -5,7 +5,7 @@ date: 2026-03-14
 photo:
   by: Javier Allegue Barros
   href: https://unsplash.com/@soymeraki
-  image: /writing/the-url-was-always-the-state-we-just-kept-ignoring-it.jpg
+  image: ./cover.jpg
 ---
 
 # The URL was always the state, we just kept ignoring it

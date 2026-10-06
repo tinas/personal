@@ -20,8 +20,6 @@ const manifestPath = resolve(__dirname, 'cache/og/manifest.json')
 const fontsDir = resolve(rootDir, 'node_modules/@fontsource/literata/files')
 const profilePath = resolve(publicDir, 'profile.png')
 
-const MD_EXTENSION_REGEX = /\.md$/
-const LEADING_SLASH_REGEX = /^\//
 const { width: WIDTH, height: HEIGHT } = OG_IMAGE_SIZE
 
 // The light "paper" palette from style.css.
@@ -235,23 +233,23 @@ async function render(card: Card): Promise<Buffer> {
 
 function loadCards(): Card[] {
   const writingDir = resolve(rootDir, 'writing')
-  const posts = readdirSync(writingDir)
-    .filter(file => file.endsWith('.md') && file !== 'index.md')
-    .flatMap((file): PostCard[] => {
-      const content = readFileSync(resolve(writingDir, file), 'utf-8')
+  const posts = readdirSync(writingDir, { withFileTypes: true })
+    .filter(entry => entry.isDirectory() && existsSync(resolve(writingDir, entry.name, 'index.md')))
+    .flatMap(({ name: slug }): PostCard[] => {
+      const postDir = resolve(writingDir, slug)
+      const content = readFileSync(resolve(postDir, 'index.md'), 'utf-8')
       const { data } = matter(content)
       if (!isPublished(data)) return []
 
-      const photoPath = data.photo?.image
-        ? resolve(publicDir, data.photo.image.replace(LEADING_SLASH_REGEX, ''))
-        : undefined
+      // Relative to the post's folder, like any other path in its markdown.
+      const photoPath = data.photo?.image ? resolve(postDir, data.photo.image) : undefined
       if (photoPath && !existsSync(photoPath))
-        console.warn(`Cover image not found for ${file}, rendering without it: ${photoPath}`)
+        console.warn(`Cover image not found for ${slug}, rendering without it: ${photoPath}`)
 
       return [
         {
           kind: 'post',
-          file: `${file.replace(MD_EXTENSION_REGEX, '')}.jpg`,
+          file: `${slug}.jpg`,
           title: data.title,
           meta: `${formatDate(data.date)} · ${estimateReadingTime(content)} min read`,
           photoPath: photoPath && existsSync(photoPath) ? photoPath : undefined,

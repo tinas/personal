@@ -13,10 +13,10 @@ export interface WritingData {
 declare const data: WritingData[]
 export { data }
 
-export default createContentLoader('writing/*.md', {
+export default createContentLoader('writing/*/index.md', {
   transform(rawData) {
     return rawData
-      .filter(page => !page.url.endsWith('/writing/') && isPublished(page.frontmatter))
+      .filter(page => isPublished(page.frontmatter))
       .map((page): WritingData => ({
         slug: page.url.replace('/writing/', ''),
         url: page.url,

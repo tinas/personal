@@ -2,10 +2,23 @@
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 
-const { frontmatter } = useData()
+// Frontmatter is plain data that Vite never sees, so the images sitting next to
+// the posts are bundled here and looked up by path instead.
+const images = import.meta.glob<string>('/writing/*/*.{avif,gif,jpeg,jpg,png,svg,webp}', {
+  eager: true,
+  import: 'default',
+})
+
+const { frontmatter, page } = useData()
 
 const photo = computed<{ by?: string; href?: string; image?: string } | undefined>(() => frontmatter.value.photo)
-const imagePath = computed(() => photo.value?.image)
+// `photo.image` is relative to the post's own file, e.g. `./cover.jpg`.
+const imagePath = computed(() => {
+  const image = photo.value?.image
+  if (!image) return undefined
+  const { pathname } = new URL(image, `file:///${page.value.filePath}`)
+  return images[decodeURI(pathname)]
+})
 const imageBy = computed(() => photo.value?.by)
 const imageByHref = computed(() => photo.value?.href)
 </script>
