@@ -6,6 +6,7 @@ import { getWritingSlug } from '../utils'
 import SiteFooter from './components/SiteFooter.vue'
 import SiteHeader from './components/SiteHeader.vue'
 import WritingFooter from './components/WritingFooter.vue'
+import { isPageTransition } from './page-transition'
 
 const { page, frontmatter } = useData()
 
@@ -18,7 +19,7 @@ const isWritingPost = computed(() => getWritingSlug(page.value.relativePath) !==
     <SiteHeader />
 
     <!-- Keyed per page so the entrance animations replay on navigation. -->
-    <main :key="page.relativePath" class="main" :class="{ wide: isHome }">
+    <main :key="page.relativePath" class="main" :class="{ wide: isHome, 'page-transition': isPageTransition }">
       <div v-if="page.isNotFound" class="vp-doc not-found">
         <p class="not-found-code smallcaps">Page 404</p>
         <h1>This page wandered off</h1>
@@ -29,7 +30,7 @@ const isWritingPost = computed(() => getWritingSlug(page.value.relativePath) !==
       </div>
 
       <template v-else>
-        <Content class="vp-doc" :class="{ home: isHome }" />
+        <Content class="vp-doc" :class="{ home: isHome, post: isWritingPost }" />
         <WritingFooter v-if="isWritingPost" />
       </template>
     </main>
