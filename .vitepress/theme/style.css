@@ -295,8 +295,10 @@ a[target='_blank'] {
   font-size: inherit;
 }
 
-/* Scene break: three spaced asterisks instead of a rule. */
+/* Scene break: three spaced asterisks instead of a rule. The base styles give
+   `hr` no height and browsers clip its overflow, which would hide them. */
 .vp-doc hr {
+  height: auto;
   margin: 3rem 0;
   border: 0;
   text-align: center;
