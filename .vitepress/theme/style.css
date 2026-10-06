@@ -421,24 +421,7 @@ a[target='_blank'] {
   will-change: transform, filter;
 }
 
-/* Moving between pages, a post's title glides between the writing list and
-   the post (see page-transition.ts). The page it lands on shows it already
-   in place, so the title and the list holding it skip the entrance above. */
-.vp-doc.post > div > h1:first-child {
-  view-transition-name: writing-title;
-}
-
-.page-transition .vp-doc.post > div > h1:first-child,
-.page-transition .vp-doc:not(.home) > div > :has(.gliding) {
-  animation: none;
-}
-
-::view-transition-group(writing-title) {
-  animation-duration: 0.6s;
-  animation-timing-function: var(--ease-out);
-}
-
-/* Page changes and the theme switch cross-fade instead of snapping. */
+/* Theme switch cross-fades instead of snapping (see SiteHeader). */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.45s;

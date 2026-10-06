@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { formatShortDate } from '../../utils'
-import { transitionSlug } from '../page-transition'
 import { data as writings } from './writings.data'
 </script>
 
 <template>
   <ol class="contents">
-    <li
-      v-for="writing in writings"
-      :key="writing.slug"
-      class="entry"
-      :class="{ gliding: writing.slug === transitionSlug }"
-    >
+    <li v-for="writing in writings" :key="writing.slug" class="entry">
       <a :href="writing.url" class="entry-link">
         <span class="entry-line">
           <span class="entry-title">{{ writing.title }}</span>
@@ -41,16 +35,6 @@ import { data as writings } from './writings.data'
 /* On the home page the list waits for the name and intro to settle first. */
 :global(.home) .entry {
   --list-delay: 1000ms;
-}
-
-/* The title gliding to or from its post in a page transition (see style.css).
-   It arrives already in place, so its entry doesn't rise in. */
-.gliding .entry-title {
-  view-transition-name: writing-title;
-}
-
-.entry.gliding {
-  animation: none;
 }
 
 .entry + .entry {

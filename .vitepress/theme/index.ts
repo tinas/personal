@@ -7,7 +7,6 @@ import WritingImage from './components/WritingImage.vue'
 import WritingList from './components/WritingList.vue'
 import WritingMeta from './components/WritingMeta.vue'
 import Layout from './Layout.vue'
-import { setupPageTransitions } from './page-transition'
 
 import '@fontsource-variable/literata/opsz.css'
 import '@fontsource-variable/literata/opsz-italic.css'
@@ -20,13 +19,11 @@ import './style.css'
 export default {
   extends: DefaultTheme,
   Layout,
-  enhanceApp({ app, router }) {
+  enhanceApp({ app }) {
     app.component('HomeIntro', HomeIntro)
     app.component('WritingImage', WritingImage)
     app.component('WritingList', WritingList)
     app.component('WritingMeta', WritingMeta)
-
-    setupPageTransitions(router)
 
     // Cookieless page views, client-side navigations included. A no-op during
     // SSR; in dev it only logs to the console.
